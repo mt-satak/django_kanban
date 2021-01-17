@@ -1,7 +1,9 @@
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
+from django.views.generic import DetailView
 
 from django.http import HttpResponse
 
@@ -46,3 +48,9 @@ def signup(request):
         'form': form
     }
     return render(request, 'kanban/signup.html', context)
+
+# classで定義すると再利用可能な汎用クラスビューを継承して実装できる
+# pythonではあまりオブジェクト指向的なクラスのイメージを持って書かない方がいいかもしれない、別物感がある
+class UserDetailView(DetailView):
+    model = User
+    template_name = 'kanban/users/detail.html'
