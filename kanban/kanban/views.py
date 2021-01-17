@@ -1,4 +1,5 @@
 from django.contrib.auth import login
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
 
@@ -16,6 +17,7 @@ def index(request):
     # テンプレートを指定するときはrender()関数で
     return render(request, 'kanban/index.html')
 
+@login_required
 def home(request):
     """
     ホーム画面の初期表示アクション

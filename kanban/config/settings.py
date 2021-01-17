@@ -120,7 +120,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+LOGIN_URL = 'login'
+
 # ログイン後のリダイレクト先([アプリ名]:[ビュー名])
-LOGIN_REDIRECT_URL = "kanban:home"
+LOGIN_REDIRECT_URL = 'kanban:home'
 # ログアウト後のリダイレクト先
-LOGOUT_REDIRECT_URL = "kanban:index"
+LOGOUT_REDIRECT_URL = 'kanban:index'
