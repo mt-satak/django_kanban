@@ -18,6 +18,6 @@ from django.urls import include, path
 
 urlpatterns = [
     path('kanban/', include('kanban.urls')),
-    path('kanban/', include('django.contrib.auth.urls')),
+    path('kanban/', include('django.contrib.auth.urls')), # 認証周りのルーティングはこれ一つで設定OK
     path('admin/', admin.site.urls),
 ]

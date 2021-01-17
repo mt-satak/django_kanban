@@ -122,3 +122,5 @@ STATIC_URL = '/static/'
 
 # ログイン後のリダイレクト先([アプリ名]:[ビュー名])
 LOGIN_REDIRECT_URL = "kanban:home"
+# ログアウト後のリダイレクト先
+LOGOUT_REDIRECT_URL = "kanban:index"
