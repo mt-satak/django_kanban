@@ -12,4 +12,6 @@ urlpatterns = [
     # name   任意 URL名称を定義
     # kwargs 任意 追加引数を辞書でビューに渡す時に指定する
     path('', views.index, name='index'),
+    path('home/', views.home, name='home'),
+    path('signup/', views.signup, name='signup'),
 ]
