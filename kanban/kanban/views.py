@@ -2,15 +2,14 @@ from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from django.shortcuts import render, redirect
-from django.views.generic import DetailView
+from django.shortcuts import render, redirect, resolve_url
+from django.views.generic import DetailView, UpdateView
 
-from django.http import HttpResponse
-
+from .forms import UserForm
 
 def index(request):
     """
-    トップページの初期表示アクション
+    トップページの初期表示
     indexというビューを定義
     """
     # テンプレートを指定せずに文字列を直接指定 文字列をレスポンスとして返すときはHttpResponse()関数を使用する
@@ -19,16 +18,18 @@ def index(request):
     # テンプレートを指定するときはrender()関数で
     return render(request, 'kanban/index.html')
 
+
 @login_required
 def home(request):
     """
-    ホーム画面の初期表示アクション
+    ホーム画面の初期表示
     """
     return render(request, 'kanban/home.html')
 
+
 def signup(request):
     """
-    サインアップ画面のアクション
+    サインアップ画面
     """
     if request.method == 'POST':
         # 入力値を取得
@@ -49,8 +50,18 @@ def signup(request):
     }
     return render(request, 'kanban/signup.html', context)
 
+
 # classで定義すると再利用可能な汎用クラスビューを継承して実装できる
 # pythonではあまりオブジェクト指向的なクラスのイメージを持って書かない方がいいかもしれない、別物感がある
 class UserDetailView(DetailView):
     model = User
     template_name = 'kanban/users/detail.html'
+
+
+class UserUpdateView(UpdateView):
+    model = User
+    template_name = 'kanban/users/update.html'
+    form_class = UserForm
+
+    def get_success_url(self):
+        return resolve_url('kanban:users_detail', pk=self.kwargs['pk'])
