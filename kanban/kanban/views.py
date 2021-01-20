@@ -6,6 +6,7 @@ from django.shortcuts import render, redirect, resolve_url
 from django.views.generic import DetailView, UpdateView
 
 from .forms import UserForm
+from .mixins import OnlyYouMixin
 
 def index(request):
     """
@@ -58,10 +59,13 @@ class UserDetailView(DetailView):
     template_name = 'kanban/users/detail.html'
 
 
-class UserUpdateView(UpdateView):
+class UserUpdateView(OnlyYouMixin, UpdateView):
     model = User
     template_name = 'kanban/users/update.html'
     form_class = UserForm
 
+    # メソッド関数の宣言では、オブジェクト自体を表す第一引数を明示しなければなりません。
+    # 第一引数のオブジェクトはメソッド呼び出しの際に暗黙の引数として渡されます。
+    # https://docs.python.org/ja/3.8/tutorial/classes.html
     def get_success_url(self):
         return resolve_url('kanban:users_detail', pk=self.kwargs['pk'])
