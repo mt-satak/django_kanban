@@ -7,9 +7,9 @@ from django.shortcuts import render, redirect, resolve_url
 from django.urls import reverse_lazy
 from django.views.generic import DetailView, UpdateView, CreateView, ListView, DeleteView
 
-from .forms import UserForm, ListForm
+from .forms import UserForm, ListForm, CardForm
 from .mixins import OnlyYouMixin
-from .models import List
+from .models import List, Card
 
 def index(request):
     """
@@ -109,3 +109,14 @@ class ListDeleteView(LoginRequiredMixin, DeleteView):
     template_name = 'kanban/lists/delete.html'
     form_class = ListForm
     success_url = reverse_lazy('kanban:lists_list')
+
+
+class CardCreateView(LoginRequiredMixin, CreateView):
+    model = Card
+    template_name = 'kanban/cards/create.html'
+    form_class = CardForm
+    success_url = reverse_lazy('kanban:home')
+
+    def form_vaild(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
