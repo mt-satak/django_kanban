@@ -15,3 +15,20 @@ class List(models.Model):
 
   def __str__(self):
     return self.title
+
+
+class Card(models.Model):
+  """
+  カードのModelクラス
+  """
+  # タイトル
+  title = models.CharField(max_length=200)
+  # 説明文(テキスト型・文字数制限なし)
+  description = models.TextField()
+  # 作成ユーザ
+  user = models.ForeignKey(User, on_delete=models.CASCADE)
+  # 紐づくリスト
+  list = models.ForeignKey(List, on_delete=models.CASCADE)
+
+  def __str__(self):
+    return self.title
