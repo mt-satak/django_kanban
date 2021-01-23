@@ -3,7 +3,7 @@ from django.urls import path
 from . import views
 
 # アプリ名を設定
-app_name = "kanban"
+app_name = 'kanban'
 
 urlpatterns = [
     # path()関数
@@ -24,5 +24,7 @@ urlpatterns = [
     path('lists/<int:pk>/update/', views.ListUpdateView.as_view(), name='lists_update'),
     path('lists/<int:pk>/delete/', views.ListDeleteView.as_view(), name='lists_delete'),
     # カード
+    path('cards/', views.CardListView.as_view(), name='cards_list'),
     path('cards/create/', views.CardCreateView.as_view(), name='cards_create'),
+    path('cards/<int:pk>/', views.CardDetailView.as_view(), name='cards_detail'),
 ]
