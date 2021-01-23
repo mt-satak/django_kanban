@@ -117,6 +117,6 @@ class CardCreateView(LoginRequiredMixin, CreateView):
     form_class = CardForm
     success_url = reverse_lazy('kanban:home')
 
-    def form_vaild(self, form):
+    def form_valid(self, form):
         form.instance.user = self.request.user
         return super().form_valid(form)
